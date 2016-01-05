@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">ScoreHelper</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="games">Games</string>
+    <string name="players">Players</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
+</resources>
