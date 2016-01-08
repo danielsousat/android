@@ -27,10 +27,11 @@ public class PlayerListAdapter extends BaseArrayAdapter<Player> {
     }
 
     @Override
-    protected void setViewData(Player item, View view) {
+    protected void setupViewData(Player item, View view) {
 
         TextView tv = (TextView) view.findViewById(R.id.playerName);
 
         tv.setText(item.getName());
     }
+
 }

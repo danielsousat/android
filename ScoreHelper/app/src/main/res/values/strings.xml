@@ -4,6 +4,15 @@
 
     <string name="games">Games</string>
     <string name="players">Players</string>
+    <string name="game">Game</string>
+    <string name="player">Player</string>
+    <string name="edit">Edit</string>
+    <string name="new_string">New</string>
     <string name="ok">Ok</string>
     <string name="cancel">Cancel</string>
+    <string name="delete_confirmation_message">You are going to delete the %1$s.\n\nDo you wish to continue?</string>
+    <string name="delete_confirmation_title">Delete confirmation</string>
+    <string name="name">Name</string>
+    <string name="nameLabel">Name:</string>
+    <string name="error_name_invalid">Name required.</string>
 </resources>

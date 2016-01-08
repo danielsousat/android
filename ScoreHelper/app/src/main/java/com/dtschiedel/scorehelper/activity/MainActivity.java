@@ -18,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String GAMES_TAB_TAG = "GamesTab";
     private static final String PLAYERS_TAB_TAG = "PlayersTab";
 
+    private final static String CURRENT_TAB_KEY = "CurrentTab";
+
     private TabHost mTabHost = null;
 
     @Override
@@ -27,16 +29,25 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
 
         loadTabs();
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        if (savedInstanceState != null) {
+
+            mTabHost.setCurrentTab(savedInstanceState.getInt(CURRENT_TAB_KEY));
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt(CURRENT_TAB_KEY, mTabHost.getCurrentTab());
     }
 
     private void loadTabs() {
@@ -73,10 +84,5 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void addButtonClicked(View view) {
-
-
     }
 }

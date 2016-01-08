@@ -3,4 +3,7 @@
     <item type="id" name="addFloatingButton" />
     <item type="id" name="okButton" />
     <item type="id" name="cancelButton" />
+    <item type="id" name="deleteButton" />
+    <item type="id" name="listItemMainLayout" />
+
 </resources>

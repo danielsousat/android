@@ -27,10 +27,12 @@ public class GameListAdapter extends BaseArrayAdapter<Game> {
     }
 
     @Override
-    protected void setViewData(Game item, View view) {
+    protected void setupViewData(Game item, View view) {
 
         TextView tv = (TextView) view.findViewById(R.id.gameName);
 
         tv.setText(item.getName());
     }
+
+
 }

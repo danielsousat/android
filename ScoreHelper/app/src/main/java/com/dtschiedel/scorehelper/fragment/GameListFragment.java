@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
 import com.dtschiedel.scorehelper.R;
+import com.dtschiedel.scorehelper.adapter.BaseArrayAdapter;
 import com.dtschiedel.scorehelper.adapter.GameListAdapter;
 import com.dtschiedel.scorehelper.entity.Game;
 
@@ -23,7 +24,7 @@ public class GameListFragment extends BaseListFragment<Game> {
 
 
     @Override
-    protected ArrayAdapter<Game> instantianteAdapter(Context context, List<Game> itens) {
+    protected BaseArrayAdapter<Game> instantianteAdapter(Context context, List<Game> itens) {
         return new GameListAdapter(context, itens);
     }
 
@@ -32,19 +33,25 @@ public class GameListFragment extends BaseListFragment<Game> {
 
         List<Game> games = null;
 
-        // games = Game.listAll(Game.class, "name");
-
-        games = new ArrayList<Game>();
-
-        games.add(new Game("jogo1"));
-        games.add(new Game("jogo2"));
-
-        for (int i = 0; i < 30; i++) {
-
-            games.add(new Game("jogoteste"));
-        }
-
+        games = Game.listAll(Game.class, "name");
 
         return games;
+    }
+
+    @Override
+    protected BaseMaintainEntityDialogFragment<Game> instantiateMaintainDialog() {
+
+        return new MaintainGameDialog();
+    }
+
+    @Override
+    protected void deleteItem(Game item) {
+
+        Game.delete(item);
+    }
+
+    @Override
+    protected String getDeleteMessageItemName(Game item) {
+        return getString(R.string.game) + " " + item.getName();
     }
 }
