@@ -21,7 +21,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/nameLabel"
+                android:text="@string/name_label"
                  />
 
             <EditText
@@ -33,9 +33,59 @@
                 android:id="@+id/gameName" />
         </TableRow>
 
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/winning_score"
+                />
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/winningScoreSpinner"
+                android:layout_column="1" />
+
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/initial_score"
+                />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:inputType="numberSigned"
+                android:ems="10"
+                android:id="@+id/initialScoreValue"
+                android:layout_column="1"
+                android:text="0"/>
+
+
+        </TableRow>
+
+
     </TableLayout>
 
-    
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/score_lines"
+        android:id="@+id/manageScoreLinesButton"
+        android:layout_gravity="center_horizontal" />
+
     <include
         style="@style/AppTheme.Dialog.Footer"
         layout="@layout/ok_cancel_buttons"

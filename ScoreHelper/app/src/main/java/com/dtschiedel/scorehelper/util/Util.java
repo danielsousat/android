@@ -49,5 +49,4 @@ public abstract class Util {
 
         return string == null || string.isEmpty();
     }
-
 }

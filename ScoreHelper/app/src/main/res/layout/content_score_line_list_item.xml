@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/ListItem.MainLayout">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scoreLinePosition"
+        android:text="0"/>
+
+
+    <View
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        style="@style/Divider.Vertical" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/scoreLineName"
+        android:text="teste"/>
+
+    <LinearLayout style="@style/ListItem.ButtonsLayout">
+
+        <ImageButton style="@style/ListItem.DeleteButton" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

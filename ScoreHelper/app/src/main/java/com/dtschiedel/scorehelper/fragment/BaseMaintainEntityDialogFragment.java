@@ -49,6 +49,8 @@ public abstract class BaseMaintainEntityDialogFragment<T extends Serializable>
      */
     protected abstract void saveData(T item, View view);
 
+    protected abstract T instantiateItem();
+
 
 
     @Override
@@ -123,6 +125,8 @@ public abstract class BaseMaintainEntityDialogFragment<T extends Serializable>
 
         dlg.setTitle(title + " " + getString(getEntityName()));
 
+        dlg.setCanceledOnTouchOutside(false);
+
         return dlg;
     }
 
@@ -131,6 +135,11 @@ public abstract class BaseMaintainEntityDialogFragment<T extends Serializable>
         boolean ok = validateData(getItem(), getView());
 
         if (ok) {
+
+            if (getItem() == null) {
+
+                setItem(instantiateItem());
+            }
 
             saveData(getItem(), getView());
 
@@ -165,4 +174,5 @@ public abstract class BaseMaintainEntityDialogFragment<T extends Serializable>
     public void setOnItemSavedListener(OnItemSavedListener<T> onItemSavedListener) {
         setTargetFragment((Fragment)onItemSavedListener, 0);
     }
+
 }

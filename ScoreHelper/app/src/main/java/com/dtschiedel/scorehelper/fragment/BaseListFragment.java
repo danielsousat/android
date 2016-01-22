@@ -58,8 +58,6 @@ public abstract class BaseListFragment<T extends Serializable> extends ListFragm
 
         dlg.setItem(item);
 
-        dlg.setCancelable(false);
-
         dlg.setOnItemSavedListener(this);
 
         dlg.show(getFragmentManager(), "MaintainEntityDlg");

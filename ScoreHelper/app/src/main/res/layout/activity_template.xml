@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    style="@style/AppTheme.Activity"
+    android:id="@+id/templateLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <include layout="@layout/activity_toolbar" />
+
+    <!-- The main content will be rendered dynamically here -->
+
+</android.support.design.widget.CoordinatorLayout>

@@ -2,6 +2,7 @@ package com.dtschiedel.scorehelper.fragment;
 
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -16,6 +17,8 @@ import com.dtschiedel.scorehelper.entity.Game;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.orm.SugarContext.getSugarContext;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -47,7 +50,7 @@ public class GameListFragment extends BaseListFragment<Game> {
     @Override
     protected void deleteItem(Game item) {
 
-        Game.delete(item);
+        item.deleteGameAndChildren();
     }
 
     @Override

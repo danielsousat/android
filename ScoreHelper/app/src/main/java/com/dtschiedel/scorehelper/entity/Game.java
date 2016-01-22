@@ -1,13 +1,16 @@
 package com.dtschiedel.scorehelper.entity;
 
-import com.orm.SugarRecord;
-import com.orm.dsl.Table;
+import com.dtschiedel.scorehelper.util.ChildrenEntityManager;
+import com.dtschiedel.scorehelper.util.WinningScoreType;
+import static com.orm.SugarContext.getSugarContext;
 
-import java.io.IOException;
-import java.io.NotActiveException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import com.orm.SugarApp;
+import com.orm.SugarRecord;
+import com.orm.SugarTransactionHelper;
+import com.orm.dsl.Ignore;
+
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by daniel.sousa on 31/12/2015.
@@ -17,6 +20,10 @@ public class Game extends SugarRecord implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String name;
+
+    private int winningScoreType = WinningScoreType.BIGGEST_SCORE.getCode();
+
+    private long initialScoreValue = 0;
 
     public Game() {
     }
@@ -34,16 +41,62 @@ public class Game extends SugarRecord implements Serializable {
         this.name = name;
     }
 
-
-   /* private void writeObject(ObjectOutputStream out) throws IOException {
-
-        SugarSerializeUtil.writeObject(out, this);
+    public int getWinningScoreType() {
+        return winningScoreType;
     }
 
-    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+    public void setWinningScoreType(int winningScoreType) {
+        this.winningScoreType = winningScoreType;
+    }
 
-        SugarSerializeUtil.readObject(in, this);
+    public WinningScoreType getWinningScoreTypeEnum() {
 
-    }*/
+        return WinningScoreType.fromCode(getWinningScoreType());
+    }
 
+    public void setWinningScoreTypeEnum(WinningScoreType type) {
+
+        setWinningScoreType(type.getCode());
+    }
+
+    public long getInitialScoreValue() {
+        return initialScoreValue;
+    }
+
+    public void setInitialScoreValue(long initialScoreValue) {
+        this.initialScoreValue = initialScoreValue;
+    }
+
+    public List<ScoreLine> getScoreLines() {
+
+        return ScoreLine.find(ScoreLine.class, "game = ?", new String[]{String.valueOf(getId())}, null,
+                "position", null);
+    }
+
+    public void deleteGameAndChildren() {
+
+        SugarTransactionHelper.doInTransaction(new SugarTransactionHelper.Callback() {
+            @Override
+            public void manipulateInTransaction() {
+
+                ScoreLine.deleteAll(ScoreLine.class, "game = ?", String.valueOf(getId()));
+
+                delete();
+            }
+        });
+    }
+
+    public static void saveGameAndScoreLines(Game game, ChildrenEntityManager<ScoreLine, Game> scoreLinesManager) {
+
+        if (scoreLinesManager.getChildrenToBeRemovedFromDatabase().size() > 0) {
+
+            ScoreLine.deleteInTx(scoreLinesManager.getChildrenToBeRemovedFromDatabase());
+        }
+
+        ScoreLine.saveInTx(scoreLinesManager.getChildren());
+
+        Game.save(game);
+    }
 }
+
+

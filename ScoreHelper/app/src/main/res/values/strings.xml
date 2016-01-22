@@ -13,6 +13,16 @@
     <string name="delete_confirmation_message">You are going to delete the %1$s.\n\nDo you wish to continue?</string>
     <string name="delete_confirmation_title">Delete confirmation</string>
     <string name="name">Name</string>
-    <string name="nameLabel">Name:</string>
+    <string name="name_label">Name:</string>
     <string name="error_name_invalid">Name required.</string>
+    <string name="winning_score">Winning Score:</string>
+    <string name="biggest_score">Biggest Score</string>
+    <string name="lowest_score">Lowest Score</string>
+    <string name="initial_score">Initial score:</string>
+    <string name="error_initial_score_value_invalid">Initial score invalid.</string>
+    <string name="score_line">Score Line</string>
+    <string name="score_lines">Score Lines</string>
+    <string name="points">points</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
 </resources>

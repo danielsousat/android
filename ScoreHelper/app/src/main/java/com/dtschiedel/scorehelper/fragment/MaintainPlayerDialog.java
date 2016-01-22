@@ -61,12 +61,13 @@ public class MaintainPlayerDialog extends BaseMaintainEntityDialogFragment<Playe
     @Override
     protected void saveData(Player item, View view) {
 
-        if (item == null) {
-            item = new Player();
-        }
-
         item.setName(getNameTextView(view).getText().toString());
 
         Player.save(item);
+    }
+
+    @Override
+    protected Player instantiateItem() {
+        return new Player();
     }
 }

@@ -30,7 +30,7 @@
                 android:inputType="textPersonName"
                 android:maxLength="@integer/name_max_length"
                 android:ems="10"
-                android:id="@+id/playerName" />
+                android:id="@+id/scoreLineName" />
         </TableRow>
 
     </TableLayout>
