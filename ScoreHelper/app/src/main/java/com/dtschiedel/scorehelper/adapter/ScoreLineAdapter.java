@@ -14,7 +14,7 @@ import java.util.List;
  * <p/>
  * Description:
  */
-public class ScoreLineAdapter extends BaseArrayAdapter<ScoreLine> {
+public class ScoreLineAdapter extends BaseListAdapter<ScoreLine> {
 
     public ScoreLineAdapter(Context context, List<ScoreLine> objects) {
         super(context, objects);

@@ -21,13 +21,15 @@ import com.dtschiedel.scorehelper.entity.Game;
 import com.dtschiedel.scorehelper.entity.ScoreLine;
 import com.dtschiedel.scorehelper.fragment.ScoreLineListFragment;
 import com.dtschiedel.scorehelper.util.ChildrenEntityManager;
+import com.dtschiedel.scorehelper.util.ChildrenEntityManagerContainer;
 
 /**
  * Created by daniel.sousa on 19/01/2016.
  * <p/>
  * Description:
  */
-public class ManageScoreLinesActivity extends BaseActivity {
+public class ManageScoreLinesActivity extends BaseActivity implements
+        ChildrenEntityManagerContainer<ScoreLine, Game> {
 
     public static final String ITEMS_KEY = "items";
 
@@ -45,7 +47,10 @@ public class ManageScoreLinesActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setScoreLinesManager((ChildrenEntityManager<ScoreLine, Game>) getIntent().getSerializableExtra(ITEMS_KEY));
+        if (getIntent() != null) {
+
+            setScoreLinesManager((ChildrenEntityManager<ScoreLine, Game>) getIntent().getSerializableExtra(ITEMS_KEY));
+        }
 
         initScoreLinesListFragment();
 
@@ -86,20 +91,11 @@ public class ManageScoreLinesActivity extends BaseActivity {
 
         ScoreLineListFragment f = new ScoreLineListFragment();
 
-        f.setScoreLinesManager(getScoreLinesManager());
-
         FragmentTransaction ft = getFragmentManager().beginTransaction();
 
         ft.add(R.id.scoreLinesListContainer, f);
 
         ft.commit();
-    }
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-
-        //initScoreLinesListFragment();
     }
 
     @Override
@@ -126,5 +122,10 @@ public class ManageScoreLinesActivity extends BaseActivity {
 
     public void setScoreLinesManager(ChildrenEntityManager<ScoreLine, Game> scoreLinesManager) {
         this.scoreLinesManager = scoreLinesManager;
+    }
+
+    @Override
+    public ChildrenEntityManager<ScoreLine, Game> getChildrenEntityManager() {
+        return getScoreLinesManager();
     }
 }

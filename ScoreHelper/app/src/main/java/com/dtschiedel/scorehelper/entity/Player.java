@@ -1,5 +1,6 @@
 package com.dtschiedel.scorehelper.entity;
 
+import com.dtschiedel.scorehelper.util.Util;
 import com.orm.SugarRecord;
 import com.orm.dsl.Table;
 
@@ -34,15 +35,15 @@ public class Player extends SugarRecord implements Serializable {
         this.name = name;
     }
 
-   /* private void writeObject(ObjectOutputStream out) throws IOException {
+    private void writeObject(ObjectOutputStream out) throws IOException {
 
-        SugarSerializeUtil.writeObject(out, this);
+        Util.writeSugarObject(out, this);
     }
 
     private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
 
-        SugarSerializeUtil.readObject(in, this);
+        Util.readSugarObject(in, this);
 
-    }*/
+    }
 
 }

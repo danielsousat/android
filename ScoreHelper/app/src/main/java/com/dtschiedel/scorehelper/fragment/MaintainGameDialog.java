@@ -33,7 +33,6 @@ public class MaintainGameDialog extends BaseMaintainEntityDialogFragment<Game> {
     private static final String ITEMS_KEY = "items";
 
 
-
     private EditText getGameNameEdit(View view) {
 
         return (EditText) view.findViewById(R.id.gameName);

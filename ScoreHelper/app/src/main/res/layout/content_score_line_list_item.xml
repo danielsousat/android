@@ -5,19 +5,21 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/ListItem.MainText"
         android:id="@+id/scoreLinePosition"
         android:text="0"/>
 
 
     <View
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         style="@style/Divider.Vertical" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/scoreLineName"
+        style="@style/ListItem.MainText"
         android:text="teste"/>
 
     <LinearLayout style="@style/ListItem.ButtonsLayout">

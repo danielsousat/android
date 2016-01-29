@@ -16,6 +16,7 @@ import android.widget.ListView;
 
 import com.dtschiedel.scorehelper.R;
 import com.dtschiedel.scorehelper.adapter.BaseArrayAdapter;
+import com.dtschiedel.scorehelper.adapter.BaseListAdapter;
 
 import java.io.Serializable;
 import java.util.List;
@@ -31,7 +32,7 @@ public abstract class BaseListFragment<T extends Serializable> extends ListFragm
 
     private static final String ITEM_TO_BE_DELETED_KEY = "itemToBeDeleted";
 
-    protected abstract BaseArrayAdapter<T> instantianteAdapter(Context context, List<T> itens);
+    protected abstract BaseListAdapter<T> instantianteAdapter(Context context, List<T> itens);
 
     protected abstract List<T> loadItens();
 
@@ -65,21 +66,19 @@ public abstract class BaseListFragment<T extends Serializable> extends ListFragm
 
     protected void refreshListView() {
 
-        BaseArrayAdapter<T> adapter = (BaseArrayAdapter<T>)getListAdapter();
+        BaseListAdapter<T> adapter = (BaseListAdapter<T>)getListAdapter();
 
-        adapter.clear();
-
-        adapter.addAll(loadItens());
+        adapter.setItems(loadItens());
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
-        BaseArrayAdapter<T> adapter = instantianteAdapter(this.getActivity(), loadItens());
+        BaseListAdapter<T> adapter = instantianteAdapter(this.getActivity(), loadItens());
 
         adapter.setOnDeleteButtonClickedListener(
-                new BaseArrayAdapter.OnDeleteButtonClickedListener<T>() {
+                new BaseListAdapter.OnDeleteButtonClickedListener<T>() {
 
                     @Override
                     public void onDeleteButtonClicked(T item) {
@@ -89,7 +88,7 @@ public abstract class BaseListFragment<T extends Serializable> extends ListFragm
                 }
         );
 
-        adapter.setOnItemClickedListener(new BaseArrayAdapter.OnItemClickedListener<T>() {
+        adapter.setOnItemClickedListener(new BaseListAdapter.OnItemClickedListener<T>() {
             @Override
             public void onItemClicked(T item) {
 

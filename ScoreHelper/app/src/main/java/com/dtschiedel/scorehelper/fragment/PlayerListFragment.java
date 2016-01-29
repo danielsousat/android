@@ -7,6 +7,7 @@ import android.widget.ArrayAdapter;
 
 import com.dtschiedel.scorehelper.R;
 import com.dtschiedel.scorehelper.adapter.BaseArrayAdapter;
+import com.dtschiedel.scorehelper.adapter.BaseListAdapter;
 import com.dtschiedel.scorehelper.adapter.PlayerListAdapter;
 import com.dtschiedel.scorehelper.entity.Player;
 
@@ -22,7 +23,7 @@ public class PlayerListFragment extends BaseListFragment<Player> {
 
 
     @Override
-    protected BaseArrayAdapter<Player> instantianteAdapter(Context context, List<Player> itens) {
+    protected BaseListAdapter<Player> instantianteAdapter(Context context, List<Player> itens) {
         return new PlayerListAdapter(context, itens);
     }
 

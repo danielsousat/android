@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by daniel.sousa on 05/01/2016.
  */
-public class PlayerListAdapter extends BaseArrayAdapter<Player> {
+public class PlayerListAdapter extends BaseListAdapter<Player> {
 
 
     public PlayerListAdapter(Context context, List<Player> objects) {

@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Created by daniel.sousa on 04/01/2016.
  */
-public class GameListAdapter extends BaseArrayAdapter<Game> {
+public class GameListAdapter extends BaseListAdapter<Game> {
 
     public GameListAdapter(Context context, List<Game> objects) {
         super(context, objects);

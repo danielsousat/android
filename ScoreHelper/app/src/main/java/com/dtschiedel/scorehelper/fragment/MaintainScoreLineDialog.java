@@ -1,5 +1,6 @@
 package com.dtschiedel.scorehelper.fragment;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -8,6 +9,7 @@ import com.dtschiedel.scorehelper.R;
 import com.dtschiedel.scorehelper.entity.Game;
 import com.dtschiedel.scorehelper.entity.ScoreLine;
 import com.dtschiedel.scorehelper.util.ChildrenEntityManager;
+import com.dtschiedel.scorehelper.util.ChildrenEntityManagerContainer;
 import com.dtschiedel.scorehelper.util.Util;
 
 /**
@@ -19,25 +21,9 @@ public class MaintainScoreLineDialog extends BaseMaintainEntityDialogFragment<Sc
 
     private static final String ITEMS_KEY = "items";
 
-    private ChildrenEntityManager<ScoreLine, Game> scoreLinesManager;
+    private ChildrenEntityManager<ScoreLine, Game> getScoreLinesManager() {
 
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-
-        if (savedInstanceState != null) {
-
-            setScoreLinesManager((ChildrenEntityManager<ScoreLine, Game>) savedInstanceState.getSerializable(ITEMS_KEY));
-        }
-
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        outState.putSerializable(ITEMS_KEY, getScoreLinesManager());
+        return Util.getParentChildrenManager(this);
     }
 
     private EditText getScoreLineNameEdit(View view) {
@@ -85,6 +71,8 @@ public class MaintainScoreLineDialog extends BaseMaintainEntityDialogFragment<Sc
             item.setPosition(getScoreLinesManager().getChildren().size() + 1);
         }
 
+
+
         item.setGame(getScoreLinesManager().getParent());
 
         getScoreLinesManager().addChild(item);
@@ -95,11 +83,5 @@ public class MaintainScoreLineDialog extends BaseMaintainEntityDialogFragment<Sc
         return new ScoreLine();
     }
 
-    public ChildrenEntityManager<ScoreLine, Game> getScoreLinesManager() {
-        return scoreLinesManager;
-    }
 
-    public void setScoreLinesManager(ChildrenEntityManager<ScoreLine, Game> scoreLinesManager) {
-        this.scoreLinesManager = scoreLinesManager;
-    }
 }

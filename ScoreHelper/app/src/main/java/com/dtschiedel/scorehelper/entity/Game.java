@@ -1,6 +1,7 @@
 package com.dtschiedel.scorehelper.entity;
 
 import com.dtschiedel.scorehelper.util.ChildrenEntityManager;
+import com.dtschiedel.scorehelper.util.Util;
 import com.dtschiedel.scorehelper.util.WinningScoreType;
 import static com.orm.SugarContext.getSugarContext;
 
@@ -9,6 +10,9 @@ import com.orm.SugarRecord;
 import com.orm.SugarTransactionHelper;
 import com.orm.dsl.Ignore;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.List;
 
@@ -88,14 +92,30 @@ public class Game extends SugarRecord implements Serializable {
 
     public static void saveGameAndScoreLines(Game game, ChildrenEntityManager<ScoreLine, Game> scoreLinesManager) {
 
+        Game.save(game);
+
         if (scoreLinesManager.getChildrenToBeRemovedFromDatabase().size() > 0) {
 
             ScoreLine.deleteInTx(scoreLinesManager.getChildrenToBeRemovedFromDatabase());
         }
 
-        ScoreLine.saveInTx(scoreLinesManager.getChildren());
+        for (ScoreLine sl : scoreLinesManager.getChildren()) {
 
-        Game.save(game);
+            sl.setGame(game);
+
+            ScoreLine.save(sl);
+        }
+    }
+
+    private void writeObject(ObjectOutputStream out) throws IOException {
+
+        Util.writeSugarObject(out, this);
+    }
+
+    private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
+
+        Util.readSugarObject(in, this);
+
     }
 }
 
