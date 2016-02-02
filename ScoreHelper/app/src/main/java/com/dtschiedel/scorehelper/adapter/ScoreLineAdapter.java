@@ -1,12 +1,21 @@
 package com.dtschiedel.scorehelper.adapter;
 
+import android.content.ClipData;
+import android.content.ClipDescription;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.util.Log;
+import android.view.DragEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
 import com.dtschiedel.scorehelper.R;
 import com.dtschiedel.scorehelper.entity.ScoreLine;
+import com.dtschiedel.scorehelper.util.ItemDragShadowBuilder;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -14,7 +23,8 @@ import java.util.List;
  * <p/>
  * Description:
  */
-public class ScoreLineAdapter extends BaseListAdapter<ScoreLine> {
+public class ScoreLineAdapter extends BaseListDragAndDropAdapter<ScoreLine> {
+
 
     public ScoreLineAdapter(Context context, List<ScoreLine> objects) {
         super(context, objects);
@@ -35,5 +45,8 @@ public class ScoreLineAdapter extends BaseListAdapter<ScoreLine> {
         tv = (TextView)view.findViewById(R.id.scoreLineName);
 
         tv.setText(item.getName());
+
     }
+
+
 }

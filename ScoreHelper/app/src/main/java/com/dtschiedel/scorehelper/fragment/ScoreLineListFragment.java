@@ -4,16 +4,19 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
 
 import com.dtschiedel.scorehelper.R;
 import com.dtschiedel.scorehelper.adapter.BaseArrayAdapter;
 import com.dtschiedel.scorehelper.adapter.BaseListAdapter;
+import com.dtschiedel.scorehelper.adapter.BaseListDragAndDropAdapter;
 import com.dtschiedel.scorehelper.adapter.ScoreLineAdapter;
 import com.dtschiedel.scorehelper.entity.Game;
 import com.dtschiedel.scorehelper.entity.ScoreLine;
 import com.dtschiedel.scorehelper.util.ChildrenEntityManager;
 import com.dtschiedel.scorehelper.util.ChildrenEntityManagerContainer;
 import com.dtschiedel.scorehelper.util.Util;
+import com.orm.SugarRecord;
 
 import java.util.List;
 
@@ -22,7 +25,8 @@ import java.util.List;
  * <p/>
  * Description:
  */
-public class ScoreLineListFragment extends BaseListFragment<ScoreLine> {
+public class ScoreLineListFragment extends BaseListFragment<ScoreLine> implements
+        BaseListDragAndDropAdapter.DropListener<ScoreLine> {
 
     private static final String ITEMS_KEY = "items";
 
@@ -34,13 +38,13 @@ public class ScoreLineListFragment extends BaseListFragment<ScoreLine> {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     protected BaseListAdapter<ScoreLine> instantianteAdapter(Context context, List<ScoreLine> itens) {
-        return new ScoreLineAdapter(context, itens);
+
+        ScoreLineAdapter adapter = new ScoreLineAdapter(context, itens);
+
+        adapter.setDropListener(this);
+
+        return adapter;
     }
 
     @Override
@@ -76,5 +80,30 @@ public class ScoreLineListFragment extends BaseListFragment<ScoreLine> {
     @Override
     protected String getDeleteMessageItemName(ScoreLine item) {
         return getString(R.string.score_line);
+    }
+
+    @Override
+    public void onDrop(ScoreLine dropedItem, ScoreLine destinationItem) {
+
+        List<ScoreLine> scoreLines = getChildrenManager().getChildren();
+
+        Util.doDropOnList(dropedItem, destinationItem, scoreLines);
+
+        resetScoreLinesPositions(scoreLines);
+
+        refreshListView();
+    }
+
+    private int getChildIndex(ScoreLine item, List<ScoreLine> list) {
+
+        for (int i = 0 ; i < list.size(); i++) {
+
+            if (Util.entitiesEqual(list.get(i), item)) {
+
+                return i;
+            }
+        }
+
+        return -1;
     }
 }

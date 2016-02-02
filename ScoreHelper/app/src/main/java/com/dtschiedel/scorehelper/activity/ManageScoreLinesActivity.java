@@ -1,20 +1,12 @@
 package com.dtschiedel.scorehelper.activity;
 
-import android.app.Activity;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.dtschiedel.scorehelper.R;
 import com.dtschiedel.scorehelper.entity.Game;
@@ -57,6 +49,29 @@ public class ManageScoreLinesActivity extends BaseActivity implements
         initToolbar();
     }
 
+    private void initScoreLinesListFragment() {
+
+        FragmentManager manager = getFragmentManager();
+
+        if (manager.findFragmentById(R.id.scoreLinesListContainer) != null) {
+
+            Log.d(this.getClass().getName(), "ScoreLineListFragment found before being added");
+        } else {
+
+            ScoreLineListFragment f = new ScoreLineListFragment();
+
+            FragmentTransaction ft = getFragmentManager().beginTransaction();
+
+            ft.add(R.id.scoreLinesListContainer, f);
+
+            ft.commit();
+
+            Log.d(this.getClass().getName(), "ScoreLineListFragment created");
+        }
+
+
+    }
+
     private void initToolbar() {
 
         ActionBar actionBar = getSupportActionBar();
@@ -85,17 +100,6 @@ public class ManageScoreLinesActivity extends BaseActivity implements
 
 
         return super.onOptionsItemSelected(item);
-    }
-
-    private void initScoreLinesListFragment() {
-
-        ScoreLineListFragment f = new ScoreLineListFragment();
-
-        FragmentTransaction ft = getFragmentManager().beginTransaction();
-
-        ft.add(R.id.scoreLinesListContainer, f);
-
-        ft.commit();
     }
 
     @Override

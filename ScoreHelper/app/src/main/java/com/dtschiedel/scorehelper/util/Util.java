@@ -10,11 +10,13 @@ import android.widget.TabWidget;
 import android.widget.TextView;
 
 import com.dtschiedel.scorehelper.R;
+import com.dtschiedel.scorehelper.entity.ScoreLine;
 import com.orm.SugarRecord;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.List;
 
 /**
  * Created by daniel.sousa on 04/01/2016.
@@ -95,7 +97,48 @@ public abstract class Util {
     public static void readSugarObject(ObjectInputStream in, SugarRecord entity) throws IOException, ClassNotFoundException {
 
         in.defaultReadObject();
-        entity.setId((Long)in.readObject());
+        entity.setId((Long) in.readObject());
 
+    }
+
+    public static boolean entitiesEqual(SugarRecord e1, SugarRecord e2) {
+
+        return e1.getId().equals(e2.getId());
+    }
+
+    public static <T extends SugarRecord> void doDropOnList(T dropedItem, T destinationItem, List<T> list) {
+
+        if (Util.entitiesEqual(dropedItem, destinationItem)) {
+
+            return;
+        }
+
+        int draggedItemInitialIndex = getChildIndex(dropedItem, list);
+        int destinationItemInitialIndex = getChildIndex(destinationItem, list);
+
+        list.remove(draggedItemInitialIndex);
+
+        /* If the item is coming from above */
+        if (draggedItemInitialIndex < destinationItemInitialIndex) {
+            list.add(destinationItemInitialIndex, dropedItem);
+        } else {
+            /*If coming from below */
+            list.add(getChildIndex(destinationItem, list), dropedItem);
+        }
+
+
+    }
+
+    public static <T extends SugarRecord> int getChildIndex(T item, List<T> list) {
+
+        for (int i = 0 ; i < list.size(); i++) {
+
+            if (Util.entitiesEqual(list.get(i), item)) {
+
+                return i;
+            }
+        }
+
+        return -1;
     }
 }
